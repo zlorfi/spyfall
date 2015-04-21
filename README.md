@@ -56,6 +56,54 @@ Make a production settings file:
 Deploy to meteor:
 
 	meteor deploy myurl.meteor.com --settings settings/production.json
+	
+## Deploy to your own server
+
+Install [mongodb](https://github.com/mongodb/mongo)
+
+Install Apache 2.4 with [Phusion Passenger 5.x](http://https://github.com/phusion/passenger) and add an new spyfall.conf Virtual Host file:
+
+	<VirtualHost *:80>
+	  ServerName spyfall.YOURHOST.com
+	  DocumentRoot /var/www/spyfall/public
+	  PassengerStickySessions On
+	  SetEnv MONGO_URL mongodb://localhost:27017/spyfall
+	  SetEnv ROOT_URL http://spyfall.YOURHOST.com
+	  SetEnv METEOR_SETTINGS '{ "public": { "url": "/" } }'
+
+	  # Set these ONLY if your app is a Meteor bundle!
+	  PassengerAppType node
+	  PassengerStartupFile main.js
+	  PassengerAppRoot /var/www/spyfall
+
+	  # Possible values include: debug, info, notice, warn, error, crit,
+	  # alert, emerg.
+	  LogLevel warn
+
+	  CustomLog ${APACHE_LOG_DIR}/spyfall_YOURHOST_com_access.log combined
+	  ErrorLog ${APACHE_LOG_DIR}/spyfall_YOURHOST_com_error.log
+
+	</VirtualHost>
+
+Clone this repo and bundle your app:
+
+	meteor bundle spyfall.tar.gz
+	
+Copy the bundle over to your server and unpack it:
+
+	tar xvzf spyfall.tar.gz /var/www/spyfall
+	
+Install all necessary npm packages:
+
+	npm install fibers semver source-map-support underscore
+	
+Create the necessary folders for Passenger:
+
+	cd /var/www/spyfall && mkdir tmp public
+	
+Restart Apache:
+
+	sudo service apache2 restart
 
 ## Links
 
