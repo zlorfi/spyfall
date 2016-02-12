@@ -2,6 +2,11 @@ body {
     text-align: center;
 }
 
+body:after {
+    display:none;
+    content: url("img/spinner.gif");
+}
+
 h4 {
     text-align: center;
 }
@@ -13,6 +18,12 @@ h5 {
     font-size: 18px;
     margin-bottom: 0;
     padding: 3px 0;
+}
+
+.high-load-message {
+    font-size: 0.8em;
+    color: #990000;
+    margin-top: 5px;
 }
 
 .button-container {
@@ -49,7 +60,16 @@ a {
     display: none;
 }
 
+.spinner {
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+    background: url("img/spinner.gif");
+}
+
 .language-list {
+    font-family: "Open Sans", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    display: none;
     text-align: center;
     margin: -20px 0 15px 0;
 }
@@ -59,6 +79,16 @@ a {
     display: inline-block;
     padding-right: 5px;
     margin-bottom: 0;
+}
+
+@media (min-width: 550px) {
+    .language-list {
+        display: block;
+    }
+
+    .language-select {
+        display: none;
+    }
 }
 
 .access-code {
@@ -156,7 +186,7 @@ a {
     box-sizing:border-box;
     width:2em;
     margin-right:8px;
-    padding:4px;
+    padding: 5px 4px 3px 4px;
     background:transparent;
     font-weight:bold;
     font-family:"Helvetica Neue", Arial, sans-serif;
@@ -217,6 +247,8 @@ a {
           }
         }
     }
+
+    cursor: pointer;
 }
 
 .player-status {
@@ -297,10 +329,17 @@ a {
     list-style-type: none;
     background-color: #f9f9f9;
     margin: 0 0 4px 0;
+    cursor: pointer;
 }
 
 .location-list li .location-name {
     padding: 3px 10px;
+}
+
+.location-list li .location-name-striked {
+    padding: 3px 10px;
+    color: #bbb;
+    text-decoration: line-through;
 }
 
 .ingame-player-list {
@@ -317,11 +356,19 @@ a {
     list-style-type: none;
     padding: 0 4px 0 0;
     margin: 0 0 4px 0;
+    cursor: pointer;
 }
 
 .ingame-player-list li .player-name {
     background-color: #f9f9f9;
     padding: 3px 10px;
+}
+
+.ingame-player-list li .player-name-striked {
+    background-color: #f9f9f9;
+    padding: 3px 10px;
+    color: #bbb;
+    text-decoration: line-through;
 }
 
 .first-player-indicator {
